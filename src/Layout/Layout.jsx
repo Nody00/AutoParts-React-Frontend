@@ -19,26 +19,11 @@ import {
 } from "@chakra-ui/react";
 import {
   Drawer,
-  DrawerBody,
-  DrawerFooter,
-  DrawerHeader,
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
 } from "@chakra-ui/react";
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-} from "@chakra-ui/react";
+import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 import { Link as ReachLink, useNavigate } from "react-router-dom";
@@ -48,6 +33,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setAuthState, clearAuthState } from "../slices/authSlice.js";
 import Cart from "../components/Cart";
+import SearchModal from "../components/SearchModal";
 
 function Layout() {
   const [isMobileNavOpen, setMobileNavOpen] = useState(false);
@@ -61,6 +47,10 @@ function Layout() {
 
   function authModalCloseHandler() {
     setAuthModal(false);
+  }
+
+  function searchModalCloseHandler() {
+    setSearchFocus(false);
   }
 
   // use effect to initialize auth and keep user logged in if token valid
@@ -145,16 +135,6 @@ function Layout() {
         </Flex>
 
         <Flex gap={3} alignItems={"center"} justifyContent={"center"}>
-          {isAuth && (
-            <Link
-              as={ReachLink}
-              to="/adminPage"
-              _hover={{ textDecoration: "none" }}
-              hideBelow={"md"}
-            >
-              <Button colorScheme="red">Admin Settings</Button>
-            </Link>
-          )}
           {!isAuth && (
             <Icon
               as={MdAccountCircle}
@@ -211,11 +191,23 @@ function Layout() {
                 onClick={() => {
                   setCartOpen(true);
                 }}
+                hideBelow={"md"}
               >
                 {itemsNum}
               </Box>
             )}
           </Box>
+
+          {isAuth && (
+            <Link
+              as={ReachLink}
+              to="/adminPage"
+              _hover={{ textDecoration: "none" }}
+              hideBelow={"md"}
+            >
+              <Button colorScheme="red">Admin Settings</Button>
+            </Link>
+          )}
 
           {isAuth && (
             <Button colorScheme="red" onClick={logoutHandler} hideBelow={"md"}>
@@ -227,6 +219,7 @@ function Layout() {
               as={MdMenu}
               w={[5, 5, 5, 7]}
               h={[5, 5, 5, 7]}
+              mr={2}
               cursor={"pointer"}
               _hover={{ color: "#e03131", transition: "all 0.2s" }}
               onClick={() => {
@@ -404,39 +397,7 @@ function Layout() {
       />
 
       {/* Search modal */}
-      <Modal
-        isOpen={searchFocus}
-        onClose={() => {
-          setSearchFocus(false);
-        }}
-        size={"xl"}
-      >
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Search our catalog</ModalHeader>
-          <ModalCloseButton />
-
-          <ModalBody>
-            <Input
-              placeholder="search products"
-              variant={"outline"}
-              size={"md"}
-              width={"100%"}
-              borderColor="#e03131"
-              focusBorderColor="#e65a5a"
-              borderWidth={2}
-              onClick={() => {
-                setSearchFocus(true);
-              }}
-            />
-
-            {/* PRODUCT CARD COMPONENT */}
-          </ModalBody>
-
-          <ModalFooter></ModalFooter>
-        </ModalContent>
-      </Modal>
-
+      <SearchModal isOpen={searchFocus} close={searchModalCloseHandler} />
       {/* Sign in,log in modal */}
 
       <AuthModal open={isAuthModal} onClose={authModalCloseHandler} />
@@ -537,7 +498,20 @@ function Layout() {
             </Menu>
             <Link
               as={ReachLink}
-              to="/allProducts/engines"
+              to="/allProducts/all"
+              padding={1.5}
+              paddingLeft={7}
+              paddingRight={7}
+              color={"#fff"}
+              fontSize={"1.2rem"}
+              fontWeight={"600"}
+              _hover={{ bgColor: "#b32727" }}
+            >
+              All products
+            </Link>
+            <Link
+              as={ReachLink}
+              to="/allProducts/engine"
               padding={1.5}
               paddingLeft={7}
               paddingRight={7}

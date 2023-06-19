@@ -28,14 +28,15 @@ import {
 } from "@chakra-ui/react";
 import sideBarImg from "../public/mechanic.jpg";
 import { useLoaderData } from "react-router-dom";
-
+import { Link as ReachLink } from "react-router-dom";
+import { AiFillPlusCircle } from "react-icons/ai";
 const ProductPage = () => {
   const product = useLoaderData();
 
   return (
     <Grid
       marginTop={0}
-      marginBottom={10}
+      marginBottom={100}
       mr={"auto"}
       ml={"auto"}
       maxWidth={"1100px"}
@@ -50,15 +51,18 @@ const ProductPage = () => {
           mb={5}
         >
           <BreadcrumbItem>
-            <BreadcrumbLink href="#">Home</BreadcrumbLink>
-          </BreadcrumbItem>
-
-          <BreadcrumbItem>
-            <BreadcrumbLink href="#">Products</BreadcrumbLink>
+            <BreadcrumbLink as={ReachLink} to="/">
+              Home
+            </BreadcrumbLink>
           </BreadcrumbItem>
 
           <BreadcrumbItem isCurrentPage>
-            <BreadcrumbLink href="#">{product.category}</BreadcrumbLink>
+            <BreadcrumbLink
+              as={ReachLink}
+              to={`/allProducts/${product.category}`}
+            >
+              {product.category}
+            </BreadcrumbLink>
           </BreadcrumbItem>
 
           <BreadcrumbItem isCurrentPage>
@@ -79,14 +83,21 @@ const ProductPage = () => {
           <Icon as={BsStar} />
           <Icon as={BsStar} />
         </Flex>
-        <Text mb={5}>Price: {product.price} $</Text>
+        {!product.discount && <Text mb={5}>Price: {product.price} $</Text>}
+        {product.discount && (
+          <Text mb={2} textDecoration={"line-through"}>
+            Price: {product.price} $
+          </Text>
+        )}
+        {product.discount && (
+          <Text mb={5} color={"#e03131"}>
+            NEW PRICE: $
+            {product.price - (product.price / 100) * product.discountAmount}
+          </Text>
+        )}
 
         <Box mb={20}>
-          <Image
-            src="https://vr6parts.com/onlinestore/media/catalog/product/cache/1/image/1800x/040ec09b1e35df139433887a97daa66f/d/s/dscn91741_resize_3.jpg"
-            w={"80%"}
-            borderRadius={"12px"}
-          />
+          <Image src={product.imageUrl} w={"80%"} borderRadius={"12px"} />
         </Box>
 
         <Heading mb={4}>Details</Heading>
@@ -98,36 +109,85 @@ const ProductPage = () => {
           fontSize={"1.4rem"}
           mb={10}
         >
-          <Text>
-            Engine Capacity:{" "}
-            <Badge colorScheme="gray" fontSize={"1.2rem"} color={"#000"}>
-              {product.capacity} L
-            </Badge>
-          </Text>
-          <Text>
-            Engine Oil:{" "}
-            <Badge colorScheme="gray" fontSize={"1.2rem"} color={"#000"}>
-              {product.oil}
-            </Badge>
-          </Text>
-          <Text>
-            Engine Power:{" "}
-            <Badge colorScheme="gray" fontSize={"1.2rem"} color={"#000"}>
-              {product.power} HP
-            </Badge>
-          </Text>
-          <Text>
-            Engine Milage:{" "}
-            <Badge colorScheme="gray" fontSize={"1.2rem"} color={"#000"}>
-              {product.miles} KM
-            </Badge>
-          </Text>
-          <Text>
-            Number of Cilinders:{" "}
-            <Badge colorScheme="gray" fontSize={"1.2rem"} color={"#000"}>
-              {product.numCilinders}
-            </Badge>
-          </Text>
+          {product.category === "engine" && (
+            <>
+              <Text>
+                Engine Capacity:{" "}
+                <Badge colorScheme="gray" fontSize={"1.2rem"} color={"#000"}>
+                  {product.capacity} L
+                </Badge>
+              </Text>
+              <Text>
+                Engine Oil:{" "}
+                <Badge colorScheme="gray" fontSize={"1.2rem"} color={"#000"}>
+                  {product.oil}
+                </Badge>
+              </Text>
+              <Text>
+                Engine Power:{" "}
+                <Badge colorScheme="gray" fontSize={"1.2rem"} color={"#000"}>
+                  {product.power} HP
+                </Badge>
+              </Text>
+              <Text>
+                Engine Milage:{" "}
+                <Badge colorScheme="gray" fontSize={"1.2rem"} color={"#000"}>
+                  {product.miles} KM
+                </Badge>
+              </Text>
+              <Text>
+                Number of Cilinders:{" "}
+                <Badge colorScheme="gray" fontSize={"1.2rem"} color={"#000"}>
+                  {product.numCilinders}
+                </Badge>
+              </Text>
+            </>
+          )}
+
+          {product.category === "brakes" && (
+            <>
+              <Text>
+                Brake size:{" "}
+                <Badge colorScheme="gray" fontSize={"1.2rem"} color={"#000"}>
+                  {product.brakeSize} mm
+                </Badge>
+              </Text>
+              <Text>
+                Brake Material:{" "}
+                <Badge colorScheme="gray" fontSize={"1.2rem"} color={"#000"}>
+                  {product.brakeMaterial}
+                </Badge>
+              </Text>
+            </>
+          )}
+
+          {product.category === "cooling" && (
+            <>
+              <Text>
+                Cooling power:{" "}
+                <Badge colorScheme="gray" fontSize={"1.2rem"} color={"#000"}>
+                  {product.coolingPower}
+                </Badge>
+              </Text>
+            </>
+          )}
+
+          {product.category === "suspension" && (
+            <>
+              <Text>
+                Suspension travel:{" "}
+                <Badge colorScheme="gray" fontSize={"1.2rem"} color={"#000"}>
+                  {product.suspensionTravel}
+                </Badge>
+              </Text>
+              <Text>
+                Suspension material:{" "}
+                <Badge colorScheme="gray" fontSize={"1.2rem"} color={"#000"}>
+                  {product.suspensionMaterial}
+                </Badge>
+              </Text>
+            </>
+          )}
         </Flex>
 
         <Heading mb={5}>Product Description</Heading>
@@ -135,8 +195,54 @@ const ProductPage = () => {
           {product.description}
         </Text>
 
-        <Heading>Users also bought</Heading>
-        {/* render accesories */}
+        <Heading mb={5}>Users also bought</Heading>
+
+        <Flex padding={2} direction={{ base: "column", md: "row" }}>
+          <Flex
+            direction={"column"}
+            alignItems={"center"}
+            justifyContent={"center"}
+            padding={"1.2rem"}
+            border={"1px"}
+            borderColor={"gray.500"}
+            borderRadius={"9px"}
+          >
+            <Image
+              src="https://images.thdstatic.com/productImages/6b63edcc-dab5-451e-913b-8184a1d3da31/svn/wd-40-lubricants-110057-64_1000.jpg"
+              w={200}
+              h={200}
+            />
+            <Text fontSize={"1.4rem"}>WD 40</Text>
+            <Text>For all your lubrication needs.</Text>
+          </Flex>
+
+          <Flex
+            direction={"column"}
+            alignItems={"center"}
+            justifyContent={"center"}
+            padding={"1.2rem"}
+          >
+            <Icon as={AiFillPlusCircle} w={100} h={100} color={"#e03131"} />
+          </Flex>
+
+          <Flex
+            direction={"column"}
+            alignItems={"center"}
+            justifyContent={"center"}
+            padding={"1.2rem"}
+            border={"1px"}
+            borderColor={"gray.500"}
+            borderRadius={"9px"}
+          >
+            <Image
+              src="https://cdn11.bigcommerce.com/s-1vohxdh8gj/images/stencil/1280x1280/products/2433/7739/PBX-L_Wrench_10mm__57096.1657571831.jpg?c=2?imbypass=on"
+              w={200}
+              h={200}
+            />
+            <Text fontSize={"1.4rem"}>10mm Socket</Text>
+            <Text>Use it or lose it.</Text>
+          </Flex>
+        </Flex>
       </Box>
 
       <Box>
@@ -212,7 +318,7 @@ const ProductPage = () => {
           backgroundSize="cover"
           borderRadius={"12px"}
           position={"relative"}
-          zIndex={-1}
+          // zIndex={-1}
         >
           <Flex
             position={"absolute"}
@@ -222,8 +328,13 @@ const ProductPage = () => {
             justifyContent={"center"}
             direction={"column"}
           >
-            <Text color={"#fff"} fontSize={"1.4rem"} textAlign={"center"}>
-              You can rely on our expirianced servise personel
+            <Text
+              color={"#fff"}
+              fontSize={"1.4rem"}
+              textAlign={"center"}
+              textShadow={"4px 4px 2px rgba(0,0,0,0.6)"}
+            >
+              You can rely on our expirianced service personel
             </Text>
             <Button
               padding={"1rem 2rem"}

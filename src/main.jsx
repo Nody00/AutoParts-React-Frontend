@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import Layout from "./Layout/Layout.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
-import HomePage from "./pages/HomePage.jsx";
+import HomePage, { loader } from "./pages/HomePage.jsx";
 import { extendTheme } from "@chakra-ui/react";
 import "@fontsource/varela-round";
 import CategoryPage from "./pages/CategoryPage.jsx";
@@ -14,6 +14,10 @@ import ProductPage from "./pages/ProductPage.jsx";
 import { loader as productLoader } from "./pages/ProductPage.jsx";
 import AdminPage from "./pages/AdminPage.jsx";
 import AddProduct from "./pages/AddProduct.jsx";
+import { loader as categoryLoader } from "./pages/CategoryPage.jsx";
+import UpdatePage from "./pages/UpdatePage.jsx";
+import { loader as updateLoader } from "./pages/UpdatePage.jsx";
+import { loader as homePageLoader } from "./pages/HomePage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -23,10 +27,12 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />,
+        loader: homePageLoader,
       },
       {
         path: "/allProducts/:category",
         element: <CategoryPage />,
+        loader: categoryLoader,
       },
       {
         path: "/product/:productId",
@@ -40,6 +46,11 @@ const router = createBrowserRouter([
       {
         path: "/addProduct",
         element: <AddProduct />,
+      },
+      {
+        path: "/updatePage/:productId",
+        element: <UpdatePage />,
+        loader: updateLoader,
       },
     ],
   },

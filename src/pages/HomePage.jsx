@@ -1,6 +1,6 @@
 import CardGrid from "../components/CardGrid";
 import HeadingBox from "../components/HeadingBox";
-
+import { useLoaderData } from "react-router-dom";
 export const dummyData = [
   {
     imageUrl:
@@ -13,7 +13,7 @@ export const dummyData = [
     price: 1500,
     description:
       "VR6 engines share a common cylinder head for the two banks of cylinders. Only two camshafts are needed for the engine, regardless of whether the engine has two or four valves per cylinder. This simplifies engine construction and reduces costs.",
-    id: "648853745dd0833d63d9de1a",
+    _id: "648853745dd0833d63d9de1a",
     miles: "250000",
     discount: true,
     discountAmount: 30,
@@ -30,7 +30,7 @@ export const dummyData = [
     price: 2000,
     description:
       "The RB26DE engine is a 2.6 L (2,568 cc) Inline-six engine manufactured by Nissan, for use in the 1992 model Nissan Skyline Autech Version R32 sedan.[11][12] The RB26DE engine is made from cast iron, while the cylinder head is made from aluminium alloy, which contains DOHC 4 valves per cylinder (24 valves in total) setup. ",
-    id: "354",
+    _id: "354",
     miles: "10000",
     discount: false,
     discountAmount: 0,
@@ -47,7 +47,7 @@ export const dummyData = [
     price: 3600,
     description:
       "The traditional five-bolt pentagonal cylinder head pattern was replaced with a square four-bolt design (much like the 64-90 Oldsmobile V8), and the pistons are of the flat-topped variety (in the LS1, LS2, LS3, LS6, LS7, LQ9, and L33), while all other variants, including the new LS9 and LQ4 truck engine, received a dished version of the GM hypereutectic piston.",
-    id: "222",
+    _id: "222",
     miles: "5000",
     category: "Engine",
     discount: false,
@@ -56,21 +56,45 @@ export const dummyData = [
 ];
 
 const HomePage = () => {
+  const { products } = useLoaderData();
+
+  console.log(products);
+
   return (
     <>
       <HeadingBox title={"Popular Engines"} />
 
-      <CardGrid products={dummyData} />
+      <CardGrid
+        products={products.filter((e) => e.category === "engine").slice(0, 3)}
+      />
 
       <HeadingBox title={"Popular Breaking Systems"} />
 
-      <CardGrid products={dummyData} />
+      <CardGrid
+        products={products.filter((e) => e.category === "brakes").slice(0, 3)}
+      />
 
-      <HeadingBox title={"Popular Breaking Systems"} />
+      <HeadingBox title={"Popular Cooling Systems"} />
 
-      <CardGrid products={dummyData} />
+      <CardGrid
+        products={products.filter((e) => e.category === "cooling").slice(0, 3)}
+      />
     </>
   );
 };
 
 export default HomePage;
+
+export async function loader() {
+  try {
+    const result = await fetch(
+      "http://localhost:8080/products/allProducts/all"
+    );
+
+    const data = await result.json();
+
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}

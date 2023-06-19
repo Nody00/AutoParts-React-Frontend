@@ -37,6 +37,17 @@ const AuthModal = (props) => {
   const dispatch = useDispatch();
   const navigation = useNavigate();
 
+  async function googleLoginHandler() {
+    try {
+      const result = await fetch("http://localhost:8080/auth/login/google");
+
+      const data = await result.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   function emailValidationHandler() {
     const email = emailRef.current.value;
 

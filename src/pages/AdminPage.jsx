@@ -11,94 +11,151 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import { MdLibraryAdd, MdDelete, MdOutlineUpdate } from "react-icons/md";
-import { Link as ReachLink } from "react-router-dom";
+import { Link as ReachLink, useNavigate } from "react-router-dom";
 import { Link } from "@chakra-ui/react";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import CardGrid from "../components/CardGrid";
 
 const AdminPage = () => {
+  const isAuth = useSelector((state) => state.auth.isAuth);
+  const userId = useSelector((state) => state.auth.userId);
+  const [deleteMode, setDeleteMode] = useState(false);
+  const [updateMode, setUpdateMode] = useState(false);
+  const [products, setProducts] = useState([]);
+
+  const navigate = useNavigate();
+
+  async function getUserProducts() {
+    try {
+      const result = await fetch(
+        "http://localhost:8080/products/user/" + userId
+      );
+
+      const { products } = await result.json();
+      console.log(products);
+      setProducts([...products]);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  function removeHandler() {
+    setDeleteMode(true);
+    setUpdateMode(false);
+    getUserProducts();
+  }
+  function updateHandler() {
+    setDeleteMode(false);
+    setUpdateMode(true);
+    getUserProducts();
+  }
+
+  useEffect(() => {
+    if (!isAuth) {
+      navigate("/");
+    }
+  }, []);
+
+  if (!isAuth) {
+    return (
+      <Heading textAlign={"center"} color={"#e03131"}>
+        Not Authorized!
+      </Heading>
+    );
+  }
+
   return (
-    <Grid
-      marginTop={0}
-      marginBottom={500}
-      mr={"auto"}
-      ml={"auto"}
-      maxWidth={"1100px"}
-      gridTemplateColumns={{ base: "1fr", md: "1fr 1fr 1fr" }}
-      columnGap={5}
-    >
-      <Link as={ReachLink} to="/addProduct" _hover={{ textDecoration: "none" }}>
-        <Card
-          _hover={{
-            cursor: "pointer",
-            bgColor: "gray.200",
-            transition: "all 0.2s",
-          }}
-          pb={10}
-        >
-          <CardHeader>
-            <Heading size="md" textAlign={"center"}>
-              Add product
-            </Heading>
-          </CardHeader>
-          <CardBody>
-            <Flex alignItems="center" justifyContent="center">
-              <Icon as={MdLibraryAdd} color="#e03131" h={20} w={20} />
-            </Flex>
-          </CardBody>
-        </Card>
-      </Link>
-
-      <Link
-        as={ReachLink}
-        to="/removeProduct"
-        _hover={{ textDecoration: "none" }}
+    <>
+      <Grid
+        marginTop={0}
+        marginBottom={20}
+        mr={"auto"}
+        ml={"auto"}
+        maxWidth={"1100px"}
+        gridTemplateColumns={{ base: "1fr", md: "1fr 1fr 1fr" }}
+        columnGap={5}
       >
-        <Card
-          _hover={{
-            cursor: "pointer",
-            bgColor: "gray.200",
-            transition: "all 0.2s",
-          }}
-          pb={10}
+        <Link
+          as={ReachLink}
+          to="/addProduct"
+          _hover={{ textDecoration: "none" }}
         >
-          <CardHeader>
-            <Heading size="md" textAlign={"center"}>
-              Remove product
-            </Heading>
-          </CardHeader>
-          <CardBody>
-            <Flex alignItems="center" justifyContent="center">
-              <Icon as={MdDelete} color="#e03131" h={20} w={20} />
-            </Flex>
-          </CardBody>
-        </Card>
-      </Link>
+          <Card
+            _hover={{
+              cursor: "pointer",
+              bgColor: "gray.200",
+              transition: "all 0.2s",
+            }}
+            pb={10}
+          >
+            <CardHeader>
+              <Heading size="md" textAlign={"center"}>
+                Add product
+              </Heading>
+            </CardHeader>
+            <CardBody>
+              <Flex alignItems="center" justifyContent="center">
+                <Icon as={MdLibraryAdd} color="#e03131" h={20} w={20} />
+              </Flex>
+            </CardBody>
+          </Card>
+        </Link>
 
-      <Link
-        as={ReachLink}
-        to="/updateProduct"
-        _hover={{ textDecoration: "none" }}
-      >
-        <Card
-          _hover={{
-            cursor: "pointer",
-            bgColor: "gray.200",
-            transition: "all 0.2s",
-          }}
-          pb={10}
-        >
-          <CardHeader>
-            <Heading size="md" textAlign={"center"}>
-              Update product
-            </Heading>
-          </CardHeader>
-          <CardBody>
-            <Flex alignItems="center" justifyContent="center">
-              <Icon as={MdOutlineUpdate} color="#e03131" h={20} w={20} />
-            </Flex>
-          </CardBody>
-        </Card>
-      </Link>
-    </Grid>
+        <Box onClick={removeHandler}>
+          <Card
+            _hover={{
+              cursor: "pointer",
+              bgColor: "gray.200",
+              transition: "all 0.2s",
+            }}
+            pb={10}
+          >
+            <CardHeader>
+              <Heading size="md" textAlign={"center"}>
+                Remove product
+              </Heading>
+            </CardHeader>
+            <CardBody>
+              <Flex alignItems="center" justifyContent="center">
+                <Icon as={MdDelete} color="#e03131" h={20} w={20} />
+              </Flex>
+            </CardBody>
+          </Card>
+        </Box>
+
+        <Box onClick={updateHandler}>
+          <Card
+            _hover={{
+              cursor: "pointer",
+              bgColor: "gray.200",
+              transition: "all 0.2s",
+            }}
+            pb={10}
+          >
+            <CardHeader>
+              <Heading size="md" textAlign={"center"}>
+                Update product
+              </Heading>
+            </CardHeader>
+            <CardBody>
+              <Flex alignItems="center" justifyContent="center">
+                <Icon as={MdOutlineUpdate} color="#e03131" h={20} w={20} />
+              </Flex>
+            </CardBody>
+          </Card>
+        </Box>
+      </Grid>
+
+      {products.length > 0 && (
+        <CardGrid
+          products={products}
+          deleteMode={deleteMode}
+          updateMode={updateMode}
+          refreshProducts={getUserProducts}
+        />
+      )}
+    </>
   );
 };
 
