@@ -268,17 +268,40 @@ function Layout() {
                   setMobileNavOpen(false);
                 }}
               />
-              <Icon
-                as={MdAccountCircle}
-                w={8}
-                h={8}
-                cursor={"pointer"}
-                _hover={{ color: "#e03131", transition: "all 0.2s" }}
-                onClick={() => {
-                  setMobileNavOpen(false);
-                  setAuthModal(true);
-                }}
-              />
+              {isAuth && (
+                <Link
+                  as={ReachLink}
+                  to="/adminPage"
+                  _hover={{ textDecoration: "none" }}
+                  hideBelow={"md"}
+                >
+                  <Button colorScheme="red">Admin Settings</Button>
+                </Link>
+              )}
+
+              {isAuth && (
+                <Button
+                  colorScheme="red"
+                  onClick={logoutHandler}
+                  hideBelow={"md"}
+                >
+                  Logout
+                </Button>
+              )}
+
+              {!isAuth && (
+                <Icon
+                  as={MdAccountCircle}
+                  w={8}
+                  h={8}
+                  cursor={"pointer"}
+                  _hover={{ color: "#e03131", transition: "all 0.2s" }}
+                  onClick={() => {
+                    setMobileNavOpen(false);
+                    setAuthModal(true);
+                  }}
+                />
+              )}
               <Icon
                 as={MdFavoriteBorder}
                 w={8}
@@ -313,7 +336,7 @@ function Layout() {
               </Link>
               <Link
                 as={ReachLink}
-                to="/"
+                to="/allProducts/brakes"
                 padding={1.5}
                 paddingLeft={7}
                 paddingRight={7}
@@ -327,7 +350,7 @@ function Layout() {
               </Link>
               <Link
                 as={ReachLink}
-                to="/"
+                to="/allProducts/Cooling"
                 padding={1.5}
                 paddingLeft={7}
                 paddingRight={7}
@@ -341,7 +364,7 @@ function Layout() {
               </Link>
               <Link
                 as={ReachLink}
-                to="/"
+                to="/allProducts/suspension"
                 padding={1.5}
                 paddingLeft={7}
                 paddingRight={7}
@@ -352,35 +375,6 @@ function Layout() {
                 _hover={{ bgColor: "#b32727", color: "#fff" }}
               >
                 Suspension
-              </Link>
-
-              <Link
-                as={ReachLink}
-                to="/"
-                padding={1.5}
-                paddingLeft={7}
-                paddingRight={7}
-                color={"#000"}
-                fontSize={"1.2rem"}
-                fontWeight={"600"}
-                borderRadius={"1000"}
-                _hover={{ bgColor: "#b32727", color: "#fff" }}
-              >
-                Accessories
-              </Link>
-              <Link
-                as={ReachLink}
-                to="/"
-                padding={1.5}
-                paddingLeft={7}
-                paddingRight={7}
-                color={"#000"}
-                fontSize={"1.2rem"}
-                fontWeight={"600"}
-                borderRadius={"1000"}
-                _hover={{ bgColor: "#b32727", color: "#fff" }}
-              >
-                Tires
               </Link>
             </Flex>
           </Flex>
@@ -443,6 +437,15 @@ function Layout() {
                 <MenuItem>
                   <Link
                     as={ReachLink}
+                    to="/allProducts/cooling"
+                    _hover={{ textDecor: "none" }}
+                  >
+                    Cooling
+                  </Link>
+                </MenuItem>
+                <MenuItem>
+                  <Link
+                    as={ReachLink}
                     to="/allProducts/brakes"
                     _hover={{ textDecor: "none" }}
                   >
@@ -456,42 +459,6 @@ function Layout() {
                     _hover={{ textDecor: "none" }}
                   >
                     Suspension
-                  </Link>
-                </MenuItem>
-                <MenuItem>
-                  <Link
-                    as={ReachLink}
-                    to="/allProducts/cooling"
-                    _hover={{ textDecor: "none" }}
-                  >
-                    Cooling System
-                  </Link>
-                </MenuItem>
-                <MenuItem>
-                  <Link
-                    as={ReachLink}
-                    to="/allProducts/drivetrain"
-                    _hover={{ textDecor: "none" }}
-                  >
-                    Drivetrain
-                  </Link>
-                </MenuItem>
-                <MenuItem>
-                  <Link
-                    as={ReachLink}
-                    to="/allProducts/exhaust"
-                    _hover={{ textDecor: "none" }}
-                  >
-                    Exhaust
-                  </Link>
-                </MenuItem>
-                <MenuItem>
-                  <Link
-                    as={ReachLink}
-                    to="/allProducts/steering"
-                    _hover={{ textDecor: "none" }}
-                  >
-                    Steering
                   </Link>
                 </MenuItem>
               </MenuList>

@@ -19,6 +19,7 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
+  Spinner,
 } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
@@ -31,6 +32,7 @@ const AuthModal = (props) => {
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const emailRef = useRef();
   const toast = useToast();
   const passwordRef = useRef();
@@ -70,14 +72,13 @@ const AuthModal = (props) => {
   }
 
   async function submitHandler() {
+    setIsLoading(true);
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
     if (emailError || passwordError) {
       return;
     }
-
-    console.log(email, password);
 
     try {
       const result = await fetch("https://autparts.onrender.com/auth/login", {
@@ -113,6 +114,7 @@ const AuthModal = (props) => {
 
       // in 3h call a function which logs user out
       setTimeout(() => {
+        setIsLoading(false);
         dispatch(clearAuthState());
         navigate("/");
       }, 3 * 60 * 60 * 1000);
@@ -127,6 +129,7 @@ const AuthModal = (props) => {
 
       props.onClose();
     } catch (error) {
+      setIsLoading(false);
       toast({
         title: error.message,
         description:
@@ -212,9 +215,21 @@ const AuthModal = (props) => {
             <Link as={ReachLink} to={"/"} textDecor={"underline"}>
               Forgot your password?
             </Link>
-            <Button w={"100%"} colorScheme="red" onClick={submitHandler}>
-              Login
-            </Button>
+            {!isLoading && (
+              <Button w={"100%"} colorScheme="red" onClick={submitHandler}>
+                Login
+              </Button>
+            )}
+
+            {isLoading && (
+              <Spinner
+                thickness="4px"
+                speed="0.65s"
+                emptyColor="gray.200"
+                color="blue.500"
+                size="xl"
+              />
+            )}
 
             <Divider />
             <Flex
