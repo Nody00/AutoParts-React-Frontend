@@ -12,15 +12,19 @@ import {
   UnorderedList,
   ListItem,
   Text,
+  Spinner,
+  Center,
 } from "@chakra-ui/react";
 import CartProductCard from "./CartProductCard";
 import { useSelector, useDispatch } from "react-redux";
 import { clearCart } from "../slices/cartSlice";
+import { useState } from "react";
 
 const Cart = (props) => {
   const cart = useSelector((state) => state.cart.cart);
   const token = useSelector((state) => state.auth.token);
   const totalAmount = useSelector((state) => state.cart.totalAmount);
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
 
   function clearCartHandler() {
@@ -93,15 +97,32 @@ const Cart = (props) => {
         </DrawerBody>
 
         <DrawerFooter>
-          <Text mr={2} fontSize={"1.2rem"}>
-            Total price: {totalAmount}$
-          </Text>
-          <Button variant="outline" mr={3} onClick={clearCartHandler}>
-            Clear all
-          </Button>
-          <Button colorScheme="red" onClick={buyHandler}>
-            Order
-          </Button>
+          {!isLoading && (
+            <Text mr={2} fontSize={"1.2rem"}>
+              Total price: {totalAmount}$
+            </Text>
+          )}
+          {!isLoading && (
+            <Button variant="outline" mr={3} onClick={clearCartHandler}>
+              Clear all
+            </Button>
+          )}
+          {!isLoading && (
+            <Button colorScheme="red" onClick={buyHandler}>
+              Order
+            </Button>
+          )}
+          {isLoading && (
+            <Center>
+              <Spinner
+                thickness="4px"
+                speed="0.65s"
+                emptyColor="gray.200"
+                color="blue.500"
+                size="xl"
+              />
+            </Center>
+          )}
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
