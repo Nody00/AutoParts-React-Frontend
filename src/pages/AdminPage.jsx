@@ -147,12 +147,19 @@ const AdminPage = () => {
         </Box>
       </Grid>
 
+      {products.length === 0 && (
+        <Heading textAlign={"center"} mb={500}>
+          No products found
+        </Heading>
+      )}
+
       {products.length > 0 && (
         <CardGrid
           products={products}
           deleteMode={deleteMode}
           updateMode={updateMode}
           refreshProducts={getUserProducts}
+          mb={300}
         />
       )}
     </>

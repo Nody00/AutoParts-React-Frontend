@@ -437,6 +437,7 @@ const AddProduct = (props) => {
           category: "engine",
           discount: discount,
           discountAmount: discountAmount,
+          userId: userId,
         };
 
         if (props.isUpdateMode) {

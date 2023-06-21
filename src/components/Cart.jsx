@@ -14,11 +14,41 @@ import {
   Text,
 } from "@chakra-ui/react";
 import CartProductCard from "./CartProductCard";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { clearCart } from "../slices/cartSlice";
 
 const Cart = (props) => {
   const cart = useSelector((state) => state.cart.cart);
+  const token = useSelector((state) => state.auth.token);
   const totalAmount = useSelector((state) => state.cart.totalAmount);
+  const dispatch = useDispatch();
+
+  function clearCartHandler() {
+    dispatch(clearCart());
+  }
+
+  async function buyHandler() {
+    try {
+      const result = await fetch(
+        "http://localhost:8080/payments/create-checkout-session",
+        {
+          method: "POST",
+          body: JSON.stringify({ cart: cart }),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+
+      const { url } = await result.json();
+      clearCartHandler();
+
+      window.location.href = url;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <Drawer
@@ -63,10 +93,12 @@ const Cart = (props) => {
           <Text mr={2} fontSize={"1.2rem"}>
             Total price: {totalAmount}$
           </Text>
-          <Button variant="outline" mr={3}>
+          <Button variant="outline" mr={3} onClick={clearCartHandler}>
             Clear all
           </Button>
-          <Button colorScheme="red">Order</Button>
+          <Button colorScheme="red" onClick={buyHandler}>
+            Order
+          </Button>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>

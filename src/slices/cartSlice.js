@@ -29,12 +29,13 @@ export const cartSlice = createSlice({
       const id = action.payload;
       const updatedCart = [...state.cart];
       const existingItemIndex = state.cart.findIndex((e) => e.id === id);
-      console.log(existingItemIndex);
+      const existingItem = updatedCart[existingItemIndex];
 
       if (existingItemIndex === -1) {
         return;
       }
 
+      state.totalAmount -= Number(existingItem.price);
       updatedCart.splice(existingItemIndex, 1);
 
       state.cart = [...updatedCart];
@@ -42,6 +43,8 @@ export const cartSlice = createSlice({
     },
     clearCart: (state) => {
       state.cart = [];
+      state.itemsCount = 0;
+      state.totalAmount = 0;
     },
   },
 });

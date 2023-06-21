@@ -17,6 +17,7 @@ const DeleteModal = (props) => {
   const toast = useToast();
   async function deleteHandler() {
     try {
+      console.log(props.productId);
       const result = await fetch(
         "http://localhost:8080/products/delete/" + props.productId,
         {
@@ -26,9 +27,11 @@ const DeleteModal = (props) => {
           },
         }
       );
-
-      props.refreshProducts();
       props.close();
+
+      setTimeout(() => {
+        props.refreshProducts();
+      }, 2000);
 
       toast({
         title: "Product deleted.",
