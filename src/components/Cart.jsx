@@ -32,7 +32,7 @@ const Cart = (props) => {
   }
 
   async function buyHandler() {
-    console.log("buy handler");
+    setIsLoading(true);
     try {
       const result = await fetch(
         "https://autparts.onrender.com/payments/create-checkout-session",
@@ -48,11 +48,13 @@ const Cart = (props) => {
 
       const { url } = await result.json();
       console.log("got url", url);
-
+      setIsLoading(false);
       clearCartHandler();
 
       window.location.href = url;
     } catch (error) {
+      setIsLoading(false);
+
       console.log(error);
     }
   }
