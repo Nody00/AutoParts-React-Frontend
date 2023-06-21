@@ -331,7 +331,6 @@ function Layout() {
                   onClick={() => {
                     setCartOpen(true);
                   }}
-                  hideBelow={"md"}
                 >
                   {itemsNum}
                 </Box>
