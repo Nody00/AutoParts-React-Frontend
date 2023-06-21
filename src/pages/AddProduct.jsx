@@ -444,14 +444,17 @@ const AddProduct = (props) => {
           newEngine._id = id;
         }
 
-        const result = await fetch(`https://autparts.onrender.com/products/${path}`, {
-          method: method,
-          body: JSON.stringify({ product: newEngine }),
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + token,
-          },
-        });
+        const result = await fetch(
+          `https://autparts.onrender.com/products/${path}`,
+          {
+            method: method,
+            body: JSON.stringify({ product: newEngine }),
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
 
         if (result.status !== 200) {
           throw new Error("Product could not be added!");
@@ -485,14 +488,17 @@ const AddProduct = (props) => {
           newBrakes._id = id;
         }
 
-        const result = await fetch(`https://autparts.onrender.com/products/${path}`, {
-          method: method,
-          body: JSON.stringify({ product: newBrakes }),
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + token,
-          },
-        });
+        const result = await fetch(
+          `https://autparts.onrender.com/products/${path}`,
+          {
+            method: method,
+            body: JSON.stringify({ product: newBrakes }),
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
 
         if (result.status !== 200) {
           throw new Error("Product could not be added!");
@@ -525,14 +531,17 @@ const AddProduct = (props) => {
           newCooling._id = id;
         }
 
-        const result = await fetch(`https://autparts.onrender.com/products/${path}`, {
-          method: method,
-          body: JSON.stringify({ product: newCooling }),
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + token,
-          },
-        });
+        const result = await fetch(
+          `https://autparts.onrender.com/products/${path}`,
+          {
+            method: method,
+            body: JSON.stringify({ product: newCooling }),
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
 
         if (result.status !== 200) {
           throw new Error("Product could not be added!");
@@ -568,14 +577,17 @@ const AddProduct = (props) => {
 
         console.log(newSuspension);
 
-        const result = await fetch(`https://autparts.onrender.com/products/${path}`, {
-          method: method,
-          body: JSON.stringify({ product: newSuspension }),
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + token,
-          },
-        });
+        const result = await fetch(
+          `https://autparts.onrender.com/products/${path}`,
+          {
+            method: method,
+            body: JSON.stringify({ product: newSuspension }),
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
 
         if (result.status !== 200) {
           throw new Error("Product could not be added!");
@@ -626,7 +638,9 @@ const AddProduct = (props) => {
         justifyContent={"center"}
         gap={5}
       >
-        <Heading>Add product</Heading>
+        <Heading>
+          {props.isUpdateMode ? "Update product" : "Add product"}
+        </Heading>
 
         <FormControl>
           <FormLabel>Product category</FormLabel>
