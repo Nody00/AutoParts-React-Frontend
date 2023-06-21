@@ -39,7 +39,9 @@ const AuthModal = (props) => {
 
   async function googleLoginHandler() {
     try {
-      const result = await fetch("http://localhost:8080/auth/login/google");
+      const result = await fetch(
+        "https://autparts.onrender.com/auth/login/google"
+      );
 
       const data = await result.json();
       console.log(data);
@@ -78,7 +80,7 @@ const AuthModal = (props) => {
     console.log(email, password);
 
     try {
-      const result = await fetch("http://localhost:8080/auth/login", {
+      const result = await fetch("https://autparts.onrender.com/auth/login", {
         method: "POST",
         body: JSON.stringify({
           email: email,

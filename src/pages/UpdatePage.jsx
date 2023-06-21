@@ -14,7 +14,7 @@ export async function loader({ params }) {
 
   try {
     const result = await fetch(
-      "http://localhost:8080/products/product/" + productId
+      "https://autparts.onrender.com/products/product/" + productId
     );
 
     const data = await result.json();

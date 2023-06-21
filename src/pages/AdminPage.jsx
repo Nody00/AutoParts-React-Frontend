@@ -29,7 +29,7 @@ const AdminPage = () => {
   async function getUserProducts() {
     try {
       const result = await fetch(
-        "http://localhost:8080/products/user/" + userId
+        "https://autparts.onrender.com/products/user/" + userId
       );
 
       const { products } = await result.json();

@@ -23,7 +23,7 @@ const SearchModal = (props) => {
 
     try {
       const result = await fetch(
-        "http://localhost:8080/products/search/" + searchQuery
+        "https://autparts.onrender.com/products/search/" + searchQuery
       );
 
       const { products } = await result.json();

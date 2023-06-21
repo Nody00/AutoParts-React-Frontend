@@ -30,7 +30,7 @@ const Cart = (props) => {
   async function buyHandler() {
     try {
       const result = await fetch(
-        "http://localhost:8080/payments/create-checkout-session",
+        "https://autparts.onrender.com/payments/create-checkout-session",
         {
           method: "POST",
           body: JSON.stringify({ cart: cart }),

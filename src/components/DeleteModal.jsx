@@ -19,7 +19,7 @@ const DeleteModal = (props) => {
     try {
       console.log(props.productId);
       const result = await fetch(
-        "http://localhost:8080/products/delete/" + props.productId,
+        "https://autparts.onrender.com/products/delete/" + props.productId,
         {
           method: "DELETE",
           headers: {

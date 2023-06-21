@@ -88,7 +88,7 @@ export default HomePage;
 export async function loader() {
   try {
     const result = await fetch(
-      "http://localhost:8080/products/allProducts/all"
+      "https://autparts.onrender.com/products/allProducts/all"
     );
 
     const data = await result.json();

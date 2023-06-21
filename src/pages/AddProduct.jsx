@@ -444,7 +444,7 @@ const AddProduct = (props) => {
           newEngine._id = id;
         }
 
-        const result = await fetch(`http://localhost:8080/products/${path}`, {
+        const result = await fetch(`https://autparts.onrender.com/products/${path}`, {
           method: method,
           body: JSON.stringify({ product: newEngine }),
           headers: {
@@ -485,7 +485,7 @@ const AddProduct = (props) => {
           newBrakes._id = id;
         }
 
-        const result = await fetch(`http://localhost:8080/products/${path}`, {
+        const result = await fetch(`https://autparts.onrender.com/products/${path}`, {
           method: method,
           body: JSON.stringify({ product: newBrakes }),
           headers: {
@@ -525,7 +525,7 @@ const AddProduct = (props) => {
           newCooling._id = id;
         }
 
-        const result = await fetch(`http://localhost:8080/products/${path}`, {
+        const result = await fetch(`https://autparts.onrender.com/products/${path}`, {
           method: method,
           body: JSON.stringify({ product: newCooling }),
           headers: {
@@ -568,7 +568,7 @@ const AddProduct = (props) => {
 
         console.log(newSuspension);
 
-        const result = await fetch(`http://localhost:8080/products/${path}`, {
+        const result = await fetch(`https://autparts.onrender.com/products/${path}`, {
           method: method,
           body: JSON.stringify({ product: newSuspension }),
           headers: {

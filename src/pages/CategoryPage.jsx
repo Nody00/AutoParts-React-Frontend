@@ -43,7 +43,7 @@ const CategoryPage = () => {
     async function getProducts() {
       try {
         const result = await fetch(
-          `http://localhost:8080/products/allProducts/${category}?page=${page}&filter=${filter}`
+          `https://autparts.onrender.com/products/allProducts/${category}?page=${page}&filter=${filter}`
         );
 
         const { products } = await result.json();
@@ -192,7 +192,7 @@ export async function loader({ params }) {
   console.log(category);
   try {
     const result = await fetch(
-      "http://localhost:8080/products/allProducts/" + category
+      "https://autparts.onrender.com/products/allProducts/" + category
     );
 
     const { products, totalItems } = await result.json();

@@ -482,7 +482,7 @@ export default function Multistep() {
     setIsLoading(true);
     console.log(userData);
     try {
-      const result = await fetch("http://localhost:8080/auth/signup", {
+      const result = await fetch("https://autparts.onrender.com/auth/signup", {
         method: "POST",
         body: JSON.stringify({
           firstName: userData.firstName,

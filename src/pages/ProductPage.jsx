@@ -359,7 +359,7 @@ export async function loader({ params }) {
     const productId = params.productId;
 
     const result = await fetch(
-      "http://localhost:8080/products/product/" + productId
+      "https://autparts.onrender.com/products/product/" + productId
     );
 
     const { product } = await result.json();
