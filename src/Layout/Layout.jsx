@@ -273,18 +273,13 @@ function Layout() {
                   as={ReachLink}
                   to="/adminPage"
                   _hover={{ textDecoration: "none" }}
-                  hideBelow={"md"}
                 >
                   <Button colorScheme="red">Admin Settings</Button>
                 </Link>
               )}
 
               {isAuth && (
-                <Button
-                  colorScheme="red"
-                  onClick={logoutHandler}
-                  hideBelow={"md"}
-                >
+                <Button colorScheme="red" onClick={logoutHandler}>
                   Logout
                 </Button>
               )}
