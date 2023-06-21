@@ -305,8 +305,8 @@ function Layout() {
             >
               <Icon
                 as={MdAddShoppingCart}
-                w={[3, 4, 5, 7]}
-                h={[3, 4, 5, 7]}
+                w={8}
+                h={8}
                 cursor={"pointer"}
                 _hover={{ color: "#e03131", transition: "all 0.2s" }}
                 onClick={() => {
