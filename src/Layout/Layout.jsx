@@ -248,7 +248,7 @@ function Layout() {
             direction={"column"}
             alignItems={"center"}
             justifyContent={"flex-start"}
-            mt={5}
+            mt={10}
           >
             <Input
               placeholder="search products"
@@ -297,17 +297,46 @@ function Layout() {
               cursor={"pointer"}
               _hover={{ color: "#e03131", transition: "all 0.2s" }}
             />
-            <Icon
-              as={MdAddShoppingCart}
-              w={8}
-              h={8}
-              cursor={"pointer"}
-              _hover={{ color: "#e03131", transition: "all 0.2s" }}
-              onClick={() => {
-                setMobileNavOpen(false);
-                setCartOpen(true);
-              }}
-            />
+            <Box
+              display={"flex"}
+              alignContent={"center"}
+              justifyContent={"center"}
+              position={"relative"}
+            >
+              <Icon
+                as={MdAddShoppingCart}
+                w={[3, 4, 5, 7]}
+                h={[3, 4, 5, 7]}
+                cursor={"pointer"}
+                _hover={{ color: "#e03131", transition: "all 0.2s" }}
+                onClick={() => {
+                  setCartOpen(true);
+                }}
+              />
+              {itemsNum > 0 && (
+                <Box
+                  position={"absolute"}
+                  top={0}
+                  left={0}
+                  transform={"translateY(-30%) translateX(-30%)"}
+                  padding={0.5}
+                  bgColor={"#e03131"}
+                  borderRadius={"100%"}
+                  w={5}
+                  h={5}
+                  display={"flex"}
+                  alignItems={"center"}
+                  justifyContent={"center"}
+                  color={"#fff"}
+                  onClick={() => {
+                    setCartOpen(true);
+                  }}
+                  hideBelow={"md"}
+                >
+                  {itemsNum}
+                </Box>
+              )}
+            </Box>
             <Link
               as={ReachLink}
               to="/allProducts/engines"
