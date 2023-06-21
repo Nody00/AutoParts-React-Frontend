@@ -240,7 +240,7 @@ function Layout() {
         }}
       >
         <DrawerOverlay />
-        <DrawerContent h={"100%"} overflowY={"scroll"}>
+        <DrawerContent h={"100%"}>
           <DrawerCloseButton focusBorderColor="#e03131" />
 
           <Flex
@@ -248,14 +248,14 @@ function Layout() {
             justifyContent={"center"}
             marginTop={10}
             marginBottom={"auto"}
-            h={"100%"}
+            h={"90%"}
+            overflowY={"scroll"}
           >
             <Flex
               gap={8}
               direction={"column"}
               alignItems={"center"}
               justifyContent={"center"}
-              overflowY={"scroll"}
             >
               <Input
                 placeholder="search products"
