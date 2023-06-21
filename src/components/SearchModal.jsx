@@ -47,7 +47,7 @@ const SearchModal = (props) => {
 
         <ModalBody h={"100%"}>
           <Input
-            placeholder="search products"
+            placeholder="search products,case sensitive"
             variant={"outline"}
             size={"md"}
             width={"100%"}

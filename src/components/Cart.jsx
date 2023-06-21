@@ -28,6 +28,7 @@ const Cart = (props) => {
   }
 
   async function buyHandler() {
+    console.log("buy handler");
     try {
       const result = await fetch(
         "https://autparts.onrender.com/payments/create-checkout-session",
@@ -42,6 +43,8 @@ const Cart = (props) => {
       );
 
       const { url } = await result.json();
+      console.log("got url", url);
+
       clearCartHandler();
 
       window.location.href = url;
