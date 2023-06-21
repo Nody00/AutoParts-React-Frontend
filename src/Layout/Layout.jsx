@@ -240,138 +240,130 @@ function Layout() {
         }}
       >
         <DrawerOverlay />
-        <DrawerContent h={"100%"}>
+        <DrawerContent h={"100vh"}>
           <DrawerCloseButton focusBorderColor="#e03131" />
 
           <Flex
-            alignContent={"center"}
-            justifyContent={"center"}
-            marginTop={5}
-            marginBottom={"auto"}
-            h={"90%"}
-            overflowY={"scroll"}
+            gap={5}
+            direction={"column"}
+            alignItems={"center"}
+            justifyContent={"flex-start"}
+            mt={5}
           >
-            <Flex
-              gap={8}
-              direction={"column"}
-              alignItems={"center"}
-              justifyContent={"center"}
+            <Input
+              placeholder="search products"
+              variant={"outline"}
+              size={"md"}
+              width={"auto"}
+              focusBorderColor="#e03131"
+              onClick={() => {
+                setSearchFocus(true);
+                setMobileNavOpen(false);
+              }}
+            />
+            {isAuth && (
+              <Link
+                as={ReachLink}
+                to="/adminPage"
+                _hover={{ textDecoration: "none" }}
+              >
+                <Button colorScheme="red">Admin Settings</Button>
+              </Link>
+            )}
+
+            {isAuth && (
+              <Button colorScheme="red" onClick={logoutHandler}>
+                Logout
+              </Button>
+            )}
+
+            {!isAuth && (
+              <Icon
+                as={MdAccountCircle}
+                w={8}
+                h={8}
+                cursor={"pointer"}
+                _hover={{ color: "#e03131", transition: "all 0.2s" }}
+                onClick={() => {
+                  setMobileNavOpen(false);
+                  setAuthModal(true);
+                }}
+              />
+            )}
+            <Icon
+              as={MdFavoriteBorder}
+              w={8}
+              h={8}
+              cursor={"pointer"}
+              _hover={{ color: "#e03131", transition: "all 0.2s" }}
+            />
+            <Icon
+              as={MdAddShoppingCart}
+              w={8}
+              h={8}
+              cursor={"pointer"}
+              _hover={{ color: "#e03131", transition: "all 0.2s" }}
+              onClick={() => {
+                setMobileNavOpen(false);
+                setCartOpen(true);
+              }}
+            />
+            <Link
+              as={ReachLink}
+              to="/allProducts/engines"
+              padding={1.5}
+              paddingLeft={7}
+              paddingRight={7}
+              color={"#000"}
+              fontSize={"1.2rem"}
+              fontWeight={"600"}
+              borderRadius={"1000"}
+              _hover={{ bgColor: "#b32727", color: "#fff" }}
             >
-              <Input
-                placeholder="search products"
-                variant={"outline"}
-                size={"md"}
-                width={"auto"}
-                focusBorderColor="#e03131"
-                onClick={() => {
-                  setSearchFocus(true);
-                  setMobileNavOpen(false);
-                }}
-              />
-              {isAuth && (
-                <Link
-                  as={ReachLink}
-                  to="/adminPage"
-                  _hover={{ textDecoration: "none" }}
-                >
-                  <Button colorScheme="red">Admin Settings</Button>
-                </Link>
-              )}
-
-              {isAuth && (
-                <Button colorScheme="red" onClick={logoutHandler}>
-                  Logout
-                </Button>
-              )}
-
-              {!isAuth && (
-                <Icon
-                  as={MdAccountCircle}
-                  w={8}
-                  h={8}
-                  cursor={"pointer"}
-                  _hover={{ color: "#e03131", transition: "all 0.2s" }}
-                  onClick={() => {
-                    setMobileNavOpen(false);
-                    setAuthModal(true);
-                  }}
-                />
-              )}
-              <Icon
-                as={MdFavoriteBorder}
-                w={8}
-                h={8}
-                cursor={"pointer"}
-                _hover={{ color: "#e03131", transition: "all 0.2s" }}
-              />
-              <Icon
-                as={MdAddShoppingCart}
-                w={8}
-                h={8}
-                cursor={"pointer"}
-                _hover={{ color: "#e03131", transition: "all 0.2s" }}
-                onClick={() => {
-                  setMobileNavOpen(false);
-                  setCartOpen(true);
-                }}
-              />
-              <Link
-                as={ReachLink}
-                to="/allProducts/engines"
-                padding={1.5}
-                paddingLeft={7}
-                paddingRight={7}
-                color={"#000"}
-                fontSize={"1.2rem"}
-                fontWeight={"600"}
-                borderRadius={"1000"}
-                _hover={{ bgColor: "#b32727", color: "#fff" }}
-              >
-                Engines
-              </Link>
-              <Link
-                as={ReachLink}
-                to="/allProducts/brakes"
-                padding={1.5}
-                paddingLeft={7}
-                paddingRight={7}
-                color={"#000"}
-                fontSize={"1.2rem"}
-                fontWeight={"600"}
-                borderRadius={"1000"}
-                _hover={{ bgColor: "#b32727", color: "#fff" }}
-              >
-                Brakes
-              </Link>
-              <Link
-                as={ReachLink}
-                to="/allProducts/Cooling"
-                padding={1.5}
-                paddingLeft={7}
-                paddingRight={7}
-                color={"#000"}
-                fontSize={"1.2rem"}
-                fontWeight={"600"}
-                borderRadius={"1000"}
-                _hover={{ bgColor: "#b32727", color: "#fff" }}
-              >
-                Cooling
-              </Link>
-              <Link
-                as={ReachLink}
-                to="/allProducts/suspension"
-                padding={1.5}
-                paddingLeft={7}
-                paddingRight={7}
-                color={"#000"}
-                fontSize={"1.2rem"}
-                fontWeight={"600"}
-                borderRadius={"1000"}
-                _hover={{ bgColor: "#b32727", color: "#fff" }}
-              >
-                Suspension
-              </Link>
-            </Flex>
+              Engines
+            </Link>
+            <Link
+              as={ReachLink}
+              to="/allProducts/brakes"
+              padding={1.5}
+              paddingLeft={7}
+              paddingRight={7}
+              color={"#000"}
+              fontSize={"1.2rem"}
+              fontWeight={"600"}
+              borderRadius={"1000"}
+              _hover={{ bgColor: "#b32727", color: "#fff" }}
+            >
+              Brakes
+            </Link>
+            <Link
+              as={ReachLink}
+              to="/allProducts/Cooling"
+              padding={1.5}
+              paddingLeft={7}
+              paddingRight={7}
+              color={"#000"}
+              fontSize={"1.2rem"}
+              fontWeight={"600"}
+              borderRadius={"1000"}
+              _hover={{ bgColor: "#b32727", color: "#fff" }}
+            >
+              Cooling
+            </Link>
+            <Link
+              as={ReachLink}
+              to="/allProducts/suspension"
+              padding={1.5}
+              paddingLeft={7}
+              paddingRight={7}
+              color={"#000"}
+              fontSize={"1.2rem"}
+              fontWeight={"600"}
+              borderRadius={"1000"}
+              _hover={{ bgColor: "#b32727", color: "#fff" }}
+            >
+              Suspension
+            </Link>
           </Flex>
         </DrawerContent>
       </Drawer>
