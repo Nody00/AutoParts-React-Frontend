@@ -246,7 +246,7 @@ function Layout() {
           <Flex
             alignContent={"center"}
             justifyContent={"center"}
-            marginTop={10}
+            marginTop={5}
             marginBottom={"auto"}
             h={"90%"}
             overflowY={"scroll"}
