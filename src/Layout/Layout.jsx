@@ -240,7 +240,7 @@ function Layout() {
         }}
       >
         <DrawerOverlay />
-        <DrawerContent h={"90%"} overflowY={"scroll"}>
+        <DrawerContent h={"100%"} overflowY={"scroll"}>
           <DrawerCloseButton focusBorderColor="#e03131" />
 
           <Flex
