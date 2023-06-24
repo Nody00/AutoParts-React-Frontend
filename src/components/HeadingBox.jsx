@@ -1,5 +1,5 @@
 import { Box, Heading } from "@chakra-ui/react";
-import imageUrl from "../public/circle.svg";
+import imageUrl from "../../public/circle.svg";
 const HeadingBox = (props) => {
   return (
     <Box
