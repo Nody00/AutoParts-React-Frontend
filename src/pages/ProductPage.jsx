@@ -26,7 +26,7 @@ import {
   Stack,
   StackDivider,
 } from "@chakra-ui/react";
-import sideBarImg from "../public/mechanic.jpg";
+import sideBarImg from "../../public/mechanic.jpg";
 import { useLoaderData } from "react-router-dom";
 import { Link as ReachLink } from "react-router-dom";
 import { AiFillPlusCircle } from "react-icons/ai";
