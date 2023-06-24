@@ -88,7 +88,7 @@ export default HomePage;
 export async function loader() {
   try {
     const result = await fetch(
-      "https://autparts.onrender.com/products/allProducts/all"
+      "https://nice-rugby-shirt-newt.cyclic.app/products/allProducts/all"
     );
 
     const data = await result.json();

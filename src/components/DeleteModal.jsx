@@ -19,7 +19,8 @@ const DeleteModal = (props) => {
     try {
       console.log(props.productId);
       const result = await fetch(
-        "https://autparts.onrender.com/products/delete/" + props.productId,
+        "https://nice-rugby-shirt-newt.cyclic.app/products/delete/" +
+          props.productId,
         {
           method: "DELETE",
           headers: {

@@ -43,7 +43,7 @@ const AuthModal = (props) => {
   async function googleLoginHandler() {
     try {
       const result = await fetch(
-        "https://autparts.onrender.com/auth/login/google"
+        "https://nice-rugby-shirt-newt.cyclic.app/auth/login/google"
       );
 
       const data = await result.json();
@@ -82,16 +82,19 @@ const AuthModal = (props) => {
     }
 
     try {
-      const result = await fetch("https://autparts.onrender.com/auth/login", {
-        method: "POST",
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const result = await fetch(
+        "https://nice-rugby-shirt-newt.cyclic.app/auth/login",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            email: email,
+            password: password,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       const response = await result.json();
 

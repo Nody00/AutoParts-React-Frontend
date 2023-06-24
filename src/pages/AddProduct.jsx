@@ -445,7 +445,7 @@ const AddProduct = (props) => {
         }
 
         const result = await fetch(
-          `https://autparts.onrender.com/products/${path}`,
+          `https://nice-rugby-shirt-newt.cyclic.app/products/${path}`,
           {
             method: method,
             body: JSON.stringify({ product: newEngine }),
@@ -489,7 +489,7 @@ const AddProduct = (props) => {
         }
 
         const result = await fetch(
-          `https://autparts.onrender.com/products/${path}`,
+          `https://nice-rugby-shirt-newt.cyclic.app/products/${path}`,
           {
             method: method,
             body: JSON.stringify({ product: newBrakes }),
@@ -532,7 +532,7 @@ const AddProduct = (props) => {
         }
 
         const result = await fetch(
-          `https://autparts.onrender.com/products/${path}`,
+          `https://nice-rugby-shirt-newt.cyclic.app/products/${path}`,
           {
             method: method,
             body: JSON.stringify({ product: newCooling }),
@@ -578,7 +578,7 @@ const AddProduct = (props) => {
         console.log(newSuspension);
 
         const result = await fetch(
-          `https://autparts.onrender.com/products/${path}`,
+          `https://nice-rugby-shirt-newt.cyclic.app/products/${path}`,
           {
             method: method,
             body: JSON.stringify({ product: newSuspension }),

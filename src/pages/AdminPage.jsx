@@ -29,7 +29,7 @@ const AdminPage = () => {
   async function getUserProducts() {
     try {
       const result = await fetch(
-        "https://autparts.onrender.com/products/user/" + userId
+        "https://nice-rugby-shirt-newt.cyclic.app/products/user/" + userId
       );
 
       const { products } = await result.json();

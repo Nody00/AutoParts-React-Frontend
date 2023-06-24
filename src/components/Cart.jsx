@@ -35,7 +35,7 @@ const Cart = (props) => {
     setIsLoading(true);
     try {
       const result = await fetch(
-        "https://autparts.onrender.com/payments/create-checkout-session",
+        "https://nice-rugby-shirt-newt.cyclic.app/payments/create-checkout-session",
         {
           method: "POST",
           body: JSON.stringify({ cart: cart }),

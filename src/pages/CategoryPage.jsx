@@ -192,7 +192,8 @@ export async function loader({ params }) {
   console.log(category);
   try {
     const result = await fetch(
-      "https://autparts.onrender.com/products/allProducts/" + category
+      "https://nice-rugby-shirt-newt.cyclic.app/products/allProducts/" +
+        category
     );
 
     const { products, totalItems } = await result.json();

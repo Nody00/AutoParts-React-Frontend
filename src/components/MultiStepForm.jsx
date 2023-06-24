@@ -482,18 +482,21 @@ export default function Multistep() {
     setIsLoading(true);
     console.log(userData);
     try {
-      const result = await fetch("https://autparts.onrender.com/auth/signup", {
-        method: "POST",
-        body: JSON.stringify({
-          firstName: userData.firstName,
-          lastName: userData.lastName,
-          email: userData.email,
-          password: userData.password,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const result = await fetch(
+        "https://nice-rugby-shirt-newt.cyclic.app/auth/signup",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            firstName: userData.firstName,
+            lastName: userData.lastName,
+            email: userData.email,
+            password: userData.password,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       const response = await result.json();
 
