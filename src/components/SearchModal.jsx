@@ -23,8 +23,7 @@ const SearchModal = (props) => {
 
     try {
       const result = await fetch(
-        "https://nice-rugby-shirt-newt.cyclic.app/products/search/" +
-          searchQuery
+        "https://autopartsbackend.onrender.com/products/search/" + searchQuery
       );
 
       const { products } = await result.json();

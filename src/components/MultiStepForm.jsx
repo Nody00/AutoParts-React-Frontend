@@ -483,7 +483,7 @@ export default function Multistep() {
     console.log(userData);
     try {
       const result = await fetch(
-        "https://nice-rugby-shirt-newt.cyclic.app/auth/signup",
+        "https://autopartsbackend.onrender.com/auth/signup",
         {
           method: "POST",
           body: JSON.stringify({

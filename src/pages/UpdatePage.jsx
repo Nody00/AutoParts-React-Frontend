@@ -14,7 +14,7 @@ export async function loader({ params }) {
 
   try {
     const result = await fetch(
-      "https://nice-rugby-shirt-newt.cyclic.app/products/product/" + productId
+      "https://autopartsbackend.onrender.com/products/product/" + productId
     );
 
     const data = await result.json();

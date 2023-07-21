@@ -1,6 +1,7 @@
 import CardGrid from "../components/CardGrid";
 import HeadingBox from "../components/HeadingBox";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, defer, Await } from "react-router-dom";
+import { Suspense } from "react";
 export const dummyData = [
   {
     imageUrl:
@@ -64,28 +65,65 @@ const HomePage = () => {
     <>
       <HeadingBox title={"Popular Engines"} />
 
-      <CardGrid
-        products={products.filter((e) => e.category === "engine").slice(0, 3)}
-      />
+      <Suspense fallback={<p>Loading...</p>}>
+        <Await resolve={products}>
+          {(resolvedProducts) => {
+            return (
+              <CardGrid
+                products={products
+                  .filter((e) => e.category === "engine")
+                  .slice(0, 3)}
+              />
+            );
+          }}
+        </Await>
+      </Suspense>
 
       <HeadingBox title={"Popular Breaking Systems"} />
 
-      <CardGrid
+      {/* <CardGrid
         products={products.filter((e) => e.category === "brakes").slice(0, 3)}
-      />
+      /> */}
+      <Suspense fallback={<p>Loading...</p>}>
+        <Await resolve={products}>
+          {(resolvedProducts) => {
+            return (
+              <CardGrid
+                products={products
+                  .filter((e) => e.category === "brakes")
+                  .slice(0, 3)}
+              />
+            );
+          }}
+        </Await>
+      </Suspense>
 
       <HeadingBox title={"Popular Cooling Systems"} />
-
+      {/* 
       <CardGrid
         products={products.filter((e) => e.category === "cooling").slice(0, 3)}
-      />
+      /> */}
+
+      <Suspense fallback={<p>Loading...</p>}>
+        <Await resolve={products}>
+          {(resolvedProducts) => {
+            return (
+              <CardGrid
+                products={products
+                  .filter((e) => e.category === "cooling")
+                  .slice(0, 3)}
+              />
+            );
+          }}
+        </Await>
+      </Suspense>
     </>
   );
 };
 
 export default HomePage;
 
-export async function loader() {
+async function loadProducts() {
   try {
     const result = await fetch(
       "https://nice-rugby-shirt-newt.cyclic.app/products/allProducts/all"
@@ -94,7 +132,13 @@ export async function loader() {
     const data = await result.json();
 
     return data;
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    console.log(err);
   }
+}
+
+export async function loader() {
+  return defer({
+    products: loadProducts(),
+  });
 }

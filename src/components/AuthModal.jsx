@@ -43,7 +43,7 @@ const AuthModal = (props) => {
   async function googleLoginHandler() {
     try {
       const result = await fetch(
-        "https://nice-rugby-shirt-newt.cyclic.app/auth/login/google"
+        "https://autopartsbackend.onrender.com/auth/login/google"
       );
 
       const data = await result.json();

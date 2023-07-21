@@ -43,7 +43,7 @@ const CategoryPage = () => {
     async function getProducts() {
       try {
         const result = await fetch(
-          `https://autparts.onrender.com/products/allProducts/${category}?page=${page}&filter=${filter}`
+          `https://autopartsbackend.onrender.com/products/allProducts/${category}?page=${page}&filter=${filter}`
         );
 
         const { products } = await result.json();
@@ -192,8 +192,7 @@ export async function loader({ params }) {
   console.log(category);
   try {
     const result = await fetch(
-      "https://nice-rugby-shirt-newt.cyclic.app/products/allProducts/" +
-        category
+      "https://autopartsbackend.onrender.com/products/allProducts/" + category
     );
 
     const { products, totalItems } = await result.json();

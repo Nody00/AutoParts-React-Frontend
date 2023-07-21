@@ -214,6 +214,7 @@ function Layout() {
               Logout
             </Button>
           )}
+
           <Hide above="md">
             <Icon
               as={MdMenu}

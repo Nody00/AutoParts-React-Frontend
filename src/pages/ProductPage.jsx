@@ -359,7 +359,7 @@ export async function loader({ params }) {
     const productId = params.productId;
 
     const result = await fetch(
-      "https://nice-rugby-shirt-newt.cyclic.app/products/product/" + productId
+      "https://autopartsbackend.onrender.com/products/product/" + productId
     );
 
     const { product } = await result.json();
