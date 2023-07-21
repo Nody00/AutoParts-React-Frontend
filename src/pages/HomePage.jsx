@@ -59,18 +59,24 @@ export const dummyData = [
 const HomePage = () => {
   const data = useLoaderData();
 
-  console.log(data);
+  console.log(data.products);
 
   return (
     <>
       <HeadingBox title={"Popular Engines"} />
 
-      <Suspense fallback={<p>Loading...</p>}>
+      <Suspense
+        fallback={
+          <p>
+            Loading please wait at least 20s for the backend instance to spin up
+          </p>
+        }
+      >
         <Await resolve={data.products}>
           {(resolvedProducts) => {
             return (
               <CardGrid
-                products={products
+                products={resolvedProducts
                   .filter((e) => e.category === "engine")
                   .slice(0, 3)}
               />
@@ -84,12 +90,18 @@ const HomePage = () => {
       {/* <CardGrid
         products={products.filter((e) => e.category === "brakes").slice(0, 3)}
       /> */}
-      <Suspense fallback={<p>Loading...</p>}>
+      <Suspense
+        fallback={
+          <p>
+            Loading please wait at least 20s for the backend instance to spin up
+          </p>
+        }
+      >
         <Await resolve={data.products}>
           {(resolvedProducts) => {
             return (
               <CardGrid
-                products={products
+                products={resolvedProducts
                   .filter((e) => e.category === "brakes")
                   .slice(0, 3)}
               />
@@ -104,12 +116,18 @@ const HomePage = () => {
         products={products.filter((e) => e.category === "cooling").slice(0, 3)}
       /> */}
 
-      <Suspense fallback={<p>Loading...</p>}>
+      <Suspense
+        fallback={
+          <p>
+            Loading please wait at least 20s for the backend instance to spin up
+          </p>
+        }
+      >
         <Await resolve={data.products}>
           {(resolvedProducts) => {
             return (
               <CardGrid
-                products={products
+                products={resolvedProducts
                   .filter((e) => e.category === "cooling")
                   .slice(0, 3)}
               />
@@ -126,12 +144,11 @@ export default HomePage;
 async function loadProducts() {
   try {
     const result = await fetch(
-      "https://nice-rugby-shirt-newt.cyclic.app/products/allProducts/all"
+      "https://autopartsbackend.onrender.com/products/allProducts/all"
     );
 
     const data = await result.json();
-
-    return data;
+    return data.products;
   } catch (err) {
     console.log(err);
   }
