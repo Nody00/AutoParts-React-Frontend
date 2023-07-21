@@ -83,7 +83,7 @@ const AuthModal = (props) => {
 
     try {
       const result = await fetch(
-        "https://nice-rugby-shirt-newt.cyclic.app/auth/login",
+        "https://autopartsbackend.onrender.com/auth/login",
         {
           method: "POST",
           body: JSON.stringify({
