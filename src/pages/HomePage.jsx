@@ -57,16 +57,16 @@ export const dummyData = [
 ];
 
 const HomePage = () => {
-  const { products } = useLoaderData();
+  const data = useLoaderData();
 
-  console.log(products);
+  console.log(data);
 
   return (
     <>
       <HeadingBox title={"Popular Engines"} />
 
       <Suspense fallback={<p>Loading...</p>}>
-        <Await resolve={products}>
+        <Await resolve={data.products}>
           {(resolvedProducts) => {
             return (
               <CardGrid
@@ -85,7 +85,7 @@ const HomePage = () => {
         products={products.filter((e) => e.category === "brakes").slice(0, 3)}
       /> */}
       <Suspense fallback={<p>Loading...</p>}>
-        <Await resolve={products}>
+        <Await resolve={data.products}>
           {(resolvedProducts) => {
             return (
               <CardGrid
@@ -105,7 +105,7 @@ const HomePage = () => {
       /> */}
 
       <Suspense fallback={<p>Loading...</p>}>
-        <Await resolve={products}>
+        <Await resolve={data.products}>
           {(resolvedProducts) => {
             return (
               <CardGrid
